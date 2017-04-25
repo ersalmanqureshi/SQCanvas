@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CanvasViewController.swift
 //  SQCanvas
 //
 //  Created by Salman Qureshi on 4/26/17.
@@ -10,18 +10,12 @@ import UIKit
 
 class CanvasViewController: UIViewController {
 
+    //MARK: IBOutlet
     @IBOutlet weak var boundaryView: UIView!
     
+    //MARK: View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
