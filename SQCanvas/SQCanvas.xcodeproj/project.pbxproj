@@ -97,12 +97,13 @@
 		4CFC7C9E1EB007AF000EC504 /* SQCanvas */ = {
 			isa = PBXGroup;
 			children = (
+				4CFC7CD11EB00CB2000EC504 /* Model */,
+				4CFC7CD01EB00CAB000EC504 /* View */,
+				4CFC7CCE1EB00C76000EC504 /* Controller */,
 				4CFC7C9F1EB007AF000EC504 /* AppDelegate.swift */,
 				4CFC7CA11EB007AF000EC504 /* CanvasViewController.swift */,
 				4CFC7CA31EB007AF000EC504 /* Main.storyboard */,
-				4CFC7CA61EB007AF000EC504 /* Assets.xcassets */,
-				4CFC7CA81EB007AF000EC504 /* LaunchScreen.storyboard */,
-				4CFC7CAB1EB007AF000EC504 /* Info.plist */,
+				4CFC7CCD1EB00C52000EC504 /* Supporting Files */,
 			);
 			path = SQCanvas;
 			sourceTree = "<group>";
@@ -123,6 +124,37 @@
 				4CFC7CC11EB007B0000EC504 /* Info.plist */,
 			);
 			path = SQCanvasUITests;
+			sourceTree = "<group>";
+		};
+		4CFC7CCD1EB00C52000EC504 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4CFC7CA61EB007AF000EC504 /* Assets.xcassets */,
+				4CFC7CA81EB007AF000EC504 /* LaunchScreen.storyboard */,
+				4CFC7CAB1EB007AF000EC504 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4CFC7CCE1EB00C76000EC504 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		4CFC7CD01EB00CAB000EC504 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		4CFC7CD11EB00CB2000EC504 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
