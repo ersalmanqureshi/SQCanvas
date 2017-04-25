@@ -14,6 +14,7 @@
 		4CFC7CAA1EB007AF000EC504 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CFC7CA81EB007AF000EC504 /* LaunchScreen.storyboard */; };
 		4CFC7CB51EB007B0000EC504 /* SQCanvasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC7CB41EB007B0000EC504 /* SQCanvasTests.swift */; };
 		4CFC7CC01EB007B0000EC504 /* SQCanvasUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC7CBF1EB007B0000EC504 /* SQCanvasUITests.swift */; };
+		4CFC7CD31EB00D0E000EC504 /* BottomLauncherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC7CD21EB00D0E000EC504 /* BottomLauncherModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		4CFC7CBB1EB007B0000EC504 /* SQCanvasUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SQCanvasUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFC7CBF1EB007B0000EC504 /* SQCanvasUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQCanvasUITests.swift; sourceTree = "<group>"; };
 		4CFC7CC11EB007B0000EC504 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CFC7CD21EB00D0E000EC504 /* BottomLauncherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomLauncherModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 		4CFC7CD11EB00CB2000EC504 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4CFC7CD21EB00D0E000EC504 /* BottomLauncherModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CFC7CD31EB00D0E000EC504 /* BottomLauncherModel.swift in Sources */,
 				4CFC7CA21EB007AF000EC504 /* CanvasViewController.swift in Sources */,
 				4CFC7CA01EB007AF000EC504 /* AppDelegate.swift in Sources */,
 			);
