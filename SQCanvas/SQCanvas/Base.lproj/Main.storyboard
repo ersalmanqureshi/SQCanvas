@@ -37,7 +37,13 @@
                             <constraint firstItem="Ir5-uz-YRh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="a2Z-6u-w1t"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Canvas" id="Vo5-9Y-tXk"/>
+                    <navigationItem key="navigationItem" title="Canvas" id="Vo5-9Y-tXk">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="iai-be-vJH">
+                            <connections>
+                                <action selector="hanldeLauncher:" destination="BYZ-38-t0r" id="nft-uX-D4u"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="boundaryView" destination="Ir5-uz-YRh" id="E9Z-ze-ZMI"/>
                     </connections>

@@ -17,5 +17,8 @@ class CanvasViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    @IBAction func hanldeLauncher(_ sender: UIBarButtonItem) {
+        
+    }
 }
 
