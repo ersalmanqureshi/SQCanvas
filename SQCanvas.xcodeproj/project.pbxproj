@@ -103,12 +103,11 @@
 		4CFC7C9E1EB007AF000EC504 /* SQCanvas */ = {
 			isa = PBXGroup;
 			children = (
+				4CFC7C9F1EB007AF000EC504 /* AppDelegate.swift */,
 				4CFC7CD11EB00CB2000EC504 /* Model */,
 				4CFC7CD01EB00CAB000EC504 /* View */,
 				4CFC7CCE1EB00C76000EC504 /* Controller */,
-				4CFC7C9F1EB007AF000EC504 /* AppDelegate.swift */,
-				4CFC7CA11EB007AF000EC504 /* CanvasViewController.swift */,
-				4CFC7CA31EB007AF000EC504 /* Main.storyboard */,
+				4CFC7CD81EB0239E000EC504 /* Storyboard */,
 				4CFC7CCD1EB00C52000EC504 /* Supporting Files */,
 			);
 			path = SQCanvas;
@@ -145,6 +144,7 @@
 		4CFC7CCE1EB00C76000EC504 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				4CFC7CA11EB007AF000EC504 /* CanvasViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -164,6 +164,14 @@
 				4CFC7CD21EB00D0E000EC504 /* BottomLauncherModel.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		4CFC7CD81EB0239E000EC504 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				4CFC7CA31EB007AF000EC504 /* Main.storyboard */,
+			);
+			name = Storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -560,6 +568,7 @@
 				4CFC7CC61EB007B0000EC504 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4CFC7CC71EB007B0000EC504 /* Build configuration list for PBXNativeTarget "SQCanvasTests" */ = {
 			isa = XCConfigurationList;
@@ -568,6 +577,7 @@
 				4CFC7CC91EB007B0000EC504 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4CFC7CCA1EB007B0000EC504 /* Build configuration list for PBXNativeTarget "SQCanvasUITests" */ = {
 			isa = XCConfigurationList;
@@ -576,6 +586,7 @@
 				4CFC7CCC1EB007B0000EC504 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
