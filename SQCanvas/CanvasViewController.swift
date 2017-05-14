@@ -64,7 +64,9 @@ class CanvasViewController: UIViewController {
     
     // MARK: - Action Tap gesture
     func overlayViewDidTap(_ tapGestureRecognizer: UITapGestureRecognizer) {
-        
+        self.view.layoutIfNeeded()
+        removeBorderFromAll()
+       // self.dismissMenuView()
     }
     
     // MARK: - Action Pan gesture recognizer
@@ -85,7 +87,6 @@ class CanvasViewController: UIViewController {
 
     // MARK: - Action Pinch gesture recognizer
     func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {
-        
         let scale = gesture.scale
         
         gesture.view!.bounds = CGRect(x: 0, y: 0, width: (gesture.view?.bounds.width)! * scale, height: (gesture.view?.bounds.width)! * scale)//gesture.view!.transform.rotated(by: gesture.rotation)
@@ -139,9 +140,8 @@ class CanvasViewController: UIViewController {
         }
         
         imageViewLayers?.append(imageView)
-//
-//        self.makeImageViewsTransparent()
-//        
+
+        makeImageViewsTransparent()
         setImageBorder(imageView)
         
         // view.superview!.bringSubviewToFront(view)
@@ -156,6 +156,30 @@ class CanvasViewController: UIViewController {
         imageView.layer.borderWidth = 1
         imageView.alpha = 1
         selectedImage = imageView.image
+    }
+    
+    //Remove Border
+    func removeBorderFromAll(){
+        for imageView in imageViewLayers!{
+            
+            if imageView.image == nil {
+                imageView.layer.borderColor = UIColor.black.cgColor
+            } else {
+                imageView.layer.borderColor = UIColor.clear.cgColor
+            }
+            imageView.alpha = 1
+        }
+    }
+    
+    func makeImageViewsTransparent(){  //similar to polyvore
+
+        for i in 0..<imageViewLayers!.count{
+            
+            let image = imageViewLayers![i]
+            image.alpha = 0.5
+            image.layer.borderColor = UIColor.clear.cgColor
+            
+        }
     }
     
     
