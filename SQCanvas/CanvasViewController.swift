@@ -15,6 +15,10 @@ class CanvasViewController: UIViewController {
     
     let bottomLauncher = BottomLauncherView()
     
+    
+    var selectedImage: UIImage?
+    
+    //MARK: Lazy Gesture Inittialization
     lazy var tapGestureRecognizer: UITapGestureRecognizer = { [unowned self] in
         let gesture = UITapGestureRecognizer()
         gesture.addTarget(self, action: #selector(overlayViewDidTap(_:)))
@@ -50,30 +54,28 @@ class CanvasViewController: UIViewController {
         bottomLauncher.showFloaterView()
     }
     
-    // MARK: - Tap gesture recognizer
+    // MARK: - Action Tap gesture
     func overlayViewDidTap(_ tapGestureRecognizer: UITapGestureRecognizer) {
         
     }
     
-    // MARK: - Pan gesture recognizer
+    // MARK: - Action Pan gesture recognizer
     func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         
         let translation = gesture.translation(in: boundaryView)
-    
         gesture.view!.center = CGPoint(x: (gesture.view!.center.x) + translation.x,
                                y: (gesture.view!.center.y) + translation.y)
-
         gesture.setTranslation(.zero, in: boundaryView)
 
     }
     
+    // MARK: - Action Rotated gesture recognizer
     func handleRotateGesture(_ gesture: UIRotationGestureRecognizer) {
         
     }
 
     
     func setupGesturesdOnImage(_ image: UIImage){
-        
      
         var custom_width = image.size.width
         let height_to_width_ratio = image.size.height/image.size.width
@@ -97,15 +99,36 @@ class CanvasViewController: UIViewController {
         imageView.addGestureRecognizer(tapGestureRecognizer)
         imageView.layer.allowsEdgeAntialiasing = true
 
+        bringToFrontAndSetBorder(imageView)
         addImageToBoundarySubView(imageView)
-
 
     }
     
     func addImageToBoundarySubView(_ imageView: UIImageView) {
+         selectedImage = imageView.image
          boundaryView.addSubview(imageView)
     }
     
+    func bringToFrontAndSetBorder(_ imageView : UIImageView) {
+               
+        setImageBorder(imageView)
+        
+        // view.superview!.bringSubviewToFront(view)
+        navigationController?.navigationBar.sendSubview(toBack: imageView)
+        imageView.layer.zPosition = -1
+        imageView.layer.borderWidth = 1
+        imageView.alpha = 1.0
+    }
+    
+    func setImageBorder(_ imageView: UIImageView) {
+        imageView.layer.borderColor = UIColor.black.cgColor
+        imageView.layer.borderWidth = 1
+        imageView.alpha = 1
+        selectedImage = imageView.image
+    }
+    
+    
+    //MARK: Selection from camera or gallery
     func takePhotoFromCamera(){
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let imagePicker = UIImagePickerController()
