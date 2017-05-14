@@ -15,7 +15,6 @@ class CanvasViewController: UIViewController {
     
     let bottomLauncher = BottomLauncherView()
     
-    
     var selectedImage: UIImage?
     
     //MARK: Lazy Gesture Inittialization
@@ -110,7 +109,19 @@ class CanvasViewController: UIViewController {
     }
     
     func bringToFrontAndSetBorder(_ imageView : UIImageView) {
-               
+        
+        //called when image is tapped
+//        for i in 0..<imageViewLayers!.count{
+//            if(imageViewLayers?[i] == imageView){
+//                imageViewLayers?.remove(at: i)
+//                break
+//            }
+//        }
+//        
+//        imageViewLayers?.append(v)
+//        
+//        self.makeImageViewsTransparent()
+//        
         setImageBorder(imageView)
         
         // view.superview!.bringSubviewToFront(view)
@@ -147,49 +158,5 @@ class CanvasViewController: UIViewController {
             imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true, completion: nil)
         }
-    }
-}
-
-extension CanvasViewController: BottomLauncherViewDelegate {
-    func didPresentViewController(_ index: Int) {
-        if index == 0{
-            
-            bottomLauncher.handleDismiss()
-            
-            print("Camera")
-            takePhotoFromCamera()
-            
-        }else if index == 1{
-            bottomLauncher.handleDismiss()
-            
-            print("Gallery")
-            takeImageFromGallery()
-            
-        }else{
-            bottomLauncher.handleDismiss()
-        }
-    }
-}
-
-extension CanvasViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    //---------------ImagePicker Delegate
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [AnyHashable: Any]!)
-    {
-        let imgData = NSData(data: UIImageJPEGRepresentation((image), 1)!) as Data
-        
-        let imageSize: Int = imgData.count
-        print("Dimension width:-\(image.size.width) height:- \(image.size.height)\n---------size of image in KB: %f ", imageSize / 1024)
-        
-        updateImage(image)
-        dismiss(animated: true, completion: nil)
-        
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func updateImage(_ image: UIImage) {
-        setupGesturesdOnImage(image)
     }
 }

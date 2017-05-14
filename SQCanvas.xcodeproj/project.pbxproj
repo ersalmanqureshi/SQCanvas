@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C374EA91EC85CB100068297 /* CanvasViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C374EA81EC85CB100068297 /* CanvasViewController+Extensions.swift */; };
 		4CFC7CA01EB007AF000EC504 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC7C9F1EB007AF000EC504 /* AppDelegate.swift */; };
 		4CFC7CA21EB007AF000EC504 /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC7CA11EB007AF000EC504 /* CanvasViewController.swift */; };
 		4CFC7CA51EB007AF000EC504 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CFC7CA31EB007AF000EC504 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C374EA81EC85CB100068297 /* CanvasViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CanvasViewController+Extensions.swift"; sourceTree = "<group>"; };
 		4CFC7C9C1EB007AF000EC504 /* SQCanvas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SQCanvas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CFC7C9F1EB007AF000EC504 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CFC7CA11EB007AF000EC504 /* CanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				4CFC7CA11EB007AF000EC504 /* CanvasViewController.swift */,
+				4C374EA81EC85CB100068297 /* CanvasViewController+Extensions.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C374EA91EC85CB100068297 /* CanvasViewController+Extensions.swift in Sources */,
 				4CFC7CD31EB00D0E000EC504 /* BottomLauncherModel.swift in Sources */,
 				4CFC7CD51EB00E6A000EC504 /* BottomLauncherView.swift in Sources */,
 				4CFC7CA21EB007AF000EC504 /* CanvasViewController.swift in Sources */,
