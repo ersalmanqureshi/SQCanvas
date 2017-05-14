@@ -42,6 +42,14 @@ class CanvasViewController: UIViewController {
         return gesture
     }()
     
+    lazy var pinchGestureRecognizer: UIPinchGestureRecognizer = { [unowned self] in
+        let gesture = UIPinchGestureRecognizer()
+        gesture.addTarget(self, action: #selector(handlePinchGesture(_:)))
+        //gesture.delegate = self
+        
+        return gesture
+    }()
+    
     //MARK: View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +83,14 @@ class CanvasViewController: UIViewController {
         gesture.rotation = 0
     }
 
+    // MARK: - Action Pinch gesture recognizer
+    func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {
+        
+        let scale = gesture.scale
+        
+        gesture.view!.bounds = CGRect(x: 0, y: 0, width: (gesture.view?.bounds.width)! * scale, height: (gesture.view?.bounds.width)! * scale)//gesture.view!.transform.rotated(by: gesture.rotation)
+        gesture.scale = 1
+    }
     
     func setupGesturesdOnImage(_ image: UIImage){
      
@@ -94,8 +110,9 @@ class CanvasViewController: UIViewController {
         imageView.layer.borderColor = UIColor.black.cgColor
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
+        
         imageView.addGestureRecognizer(panGestureRecognizer)
-        //imageView.addGestureRecognizer(pinch_gesture)
+        imageView.addGestureRecognizer(pinchGestureRecognizer)
         imageView.addGestureRecognizer(rotationGestureRecognizer)
         imageView.addGestureRecognizer(tapGestureRecognizer)
         imageView.layer.allowsEdgeAntialiasing = true
