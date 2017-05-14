@@ -16,6 +16,7 @@ class CanvasViewController: UIViewController {
     let bottomLauncher = BottomLauncherView()
     
     var selectedImage: UIImage?
+    var imageViewLayers: [UIImageView]? = []
     
     //MARK: Lazy Gesture Inittialization
     lazy var tapGestureRecognizer: UITapGestureRecognizer = { [unowned self] in
@@ -70,7 +71,8 @@ class CanvasViewController: UIViewController {
     
     // MARK: - Action Rotated gesture recognizer
     func handleRotateGesture(_ gesture: UIRotationGestureRecognizer) {
-        
+        gesture.view!.transform = gesture.view!.transform.rotated(by: gesture.rotation)
+        gesture.rotation = 0
     }
 
     
@@ -98,28 +100,29 @@ class CanvasViewController: UIViewController {
         imageView.addGestureRecognizer(tapGestureRecognizer)
         imageView.layer.allowsEdgeAntialiasing = true
 
-        bringToFrontAndSetBorder(imageView)
         addImageToBoundarySubView(imageView)
+        bringToFrontAndSetBorder(imageView)
 
     }
     
     func addImageToBoundarySubView(_ imageView: UIImageView) {
          selectedImage = imageView.image
+         imageViewLayers!.append(imageView)
          boundaryView.addSubview(imageView)
     }
     
     func bringToFrontAndSetBorder(_ imageView : UIImageView) {
         
         //called when image is tapped
-//        for i in 0..<imageViewLayers!.count{
-//            if(imageViewLayers?[i] == imageView){
-//                imageViewLayers?.remove(at: i)
-//                break
-//            }
-//        }
-//        
-//        imageViewLayers?.append(v)
-//        
+        for i in 0..<imageViewLayers!.count{
+            if(imageViewLayers?[i] == imageView){
+                imageViewLayers?.remove(at: i)
+                break
+            }
+        }
+        
+        imageViewLayers?.append(imageView)
+//
 //        self.makeImageViewsTransparent()
 //        
         setImageBorder(imageView)
