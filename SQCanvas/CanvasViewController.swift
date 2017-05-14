@@ -63,7 +63,12 @@ class CanvasViewController: UIViewController {
     }
     
     // MARK: - Action Tap gesture
-    func overlayViewDidTap(_ tapGestureRecognizer: UITapGestureRecognizer) {
+    func overlayViewDidTap(_ gesture: UITapGestureRecognizer) {
+        
+        bringToFrontAndSetBorder(gesture.view! as! UIImageView)
+        gesture.view!.becomeFirstResponder()
+        
+        //self.addNewImageViewLayer()
         self.view.layoutIfNeeded()
         removeBorderFromAll()
        // self.dismissMenuView()
@@ -176,7 +181,7 @@ class CanvasViewController: UIViewController {
         for i in 0..<imageViewLayers!.count{
             
             let image = imageViewLayers![i]
-            image.alpha = 0.5
+            image.alpha = 0.4
             image.layer.borderColor = UIColor.clear.cgColor
             
         }
