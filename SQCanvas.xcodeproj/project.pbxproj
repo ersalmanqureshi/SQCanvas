@@ -20,6 +20,8 @@
 		4CFC7CD71EB00F65000EC504 /* BottomLauncherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC7CD61EB00F65000EC504 /* BottomLauncherCell.swift */; };
 		5CF79AE81F6EC73600CE3038 /* NSObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF79AE71F6EC73600CE3038 /* NSObserver.swift */; };
 		5CF79AEA1F6EC76700CE3038 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF79AE91F6EC76700CE3038 /* Notifications.swift */; };
+		5CF79AEC1F6F019D00CE3038 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF79AEB1F6F019D00CE3038 /* MenuView.swift */; };
+		5CF79AF01F6F04CC00CE3038 /* Menu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CF79AEF1F6F04CC00CE3038 /* Menu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		4CFC7CD61EB00F65000EC504 /* BottomLauncherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomLauncherCell.swift; sourceTree = "<group>"; };
 		5CF79AE71F6EC73600CE3038 /* NSObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObserver.swift; sourceTree = "<group>"; };
 		5CF79AE91F6EC76700CE3038 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		5CF79AEB1F6F019D00CE3038 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		5CF79AEF1F6F04CC00CE3038 /* Menu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Menu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +166,8 @@
 			children = (
 				4CFC7CD41EB00E6A000EC504 /* BottomLauncherView.swift */,
 				4CFC7CD61EB00F65000EC504 /* BottomLauncherCell.swift */,
+				5CF79AEB1F6F019D00CE3038 /* MenuView.swift */,
+				5CF79AEF1F6F04CC00CE3038 /* Menu.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -303,6 +309,7 @@
 			files = (
 				4CFC7CAA1EB007AF000EC504 /* LaunchScreen.storyboard in Resources */,
 				4CFC7CA71EB007AF000EC504 /* Assets.xcassets in Resources */,
+				5CF79AF01F6F04CC00CE3038 /* Menu.xib in Resources */,
 				4CFC7CA51EB007AF000EC504 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +339,7 @@
 				5CF79AE81F6EC73600CE3038 /* NSObserver.swift in Sources */,
 				4CFC7CD31EB00D0E000EC504 /* BottomLauncherModel.swift in Sources */,
 				4CFC7CD51EB00E6A000EC504 /* BottomLauncherView.swift in Sources */,
+				5CF79AEC1F6F019D00CE3038 /* MenuView.swift in Sources */,
 				4CFC7CA21EB007AF000EC504 /* CanvasViewController.swift in Sources */,
 				4CFC7CA01EB007AF000EC504 /* AppDelegate.swift in Sources */,
 				5CF79AEA1F6EC76700CE3038 /* Notifications.swift in Sources */,
