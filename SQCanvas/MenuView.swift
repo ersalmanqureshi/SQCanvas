@@ -35,6 +35,12 @@ class MenuView: UIView {
         
         Bundle.main.loadNibNamed("Menu", owner: self, options: nil)?[0] as? UIView
         self.addSubview(view)
+        view.addSubview(deleteButtonTap)
+        view.addSubview(cloneButtonTap)
+        view.addSubview(flopButtonTap)
+        view.addSubview(flipButtonTap)
+        view.addSubview(forwardButtonTap)
+        view.addSubview(backwardButtonTap)
         view.frame = self.bounds
         
     }
