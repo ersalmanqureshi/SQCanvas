@@ -12,6 +12,9 @@ class CanvasViewController: UIViewController {
 
     //MARK: IBOutlet
     @IBOutlet weak var boundaryView: UIView!
+    @IBOutlet weak var centerButton: UIButton!
+    @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var redoButton: UIButton!
     
     let bottomLauncher = BottomLauncherView()
     
@@ -50,6 +53,12 @@ class CanvasViewController: UIViewController {
         return gesture
     }()
     
+    //MARK: Undo & Redo Observer declaration
+    let undoer = UndoManager()
+    var undoDidCloseGroupObserver: NCObserver!
+    var undoDidUndoChangeObserver: NCObserver!
+    var undoDidRedoChangeObserver: NCObserver!
+    
     //MARK: View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,14 +72,196 @@ class CanvasViewController: UIViewController {
     func canvasViewTapGesture(){
         let canvasTap = UITapGestureRecognizer(target: self, action: #selector(canvasViewTap))
         canvasTap.numberOfTapsRequired = 1
-        //canvasTap.delegate = self
         boundaryView.addGestureRecognizer(canvasTap)
     }
     
     func canvasViewTap(){
         self.view.layoutIfNeeded()
         removeBorderFromAll()
-        //self.dismissMenuView()
+    }
+    
+    //MARK: Undo & Redo Observers
+    func registerObservers() {
+        undoDidCloseGroupObserver = NCObserver(name: .DidCloseUndoGroupNotification) { [unowned self] userInfo in
+            self.toggleUndo(self.undoer.canUndo)
+            self.toggleRedo(self.undoer.canRedo)
+            
+        }
+        
+        undoDidUndoChangeObserver  = NCObserver(name: .DidUndoChangeNotification) { [unowned self] userInfo in
+            self.toggleUndo(self.undoer.canUndo)
+            self.toggleRedo(self.undoer.canRedo)
+        }
+        
+        undoDidRedoChangeObserver  = NCObserver(name: .DidRedoChangeNotification) { [unowned self] userInfo in
+            self.toggleUndo(self.undoer.canUndo)
+            self.toggleRedo(self.undoer.canRedo)
+        }
+    }
+    
+    //MARK: Calling from register observers
+    func toggleUndo(_ enabled:Bool) {
+        if enabled == true{
+            self.showView(undoButton)
+        }else{
+            self.hideView(undoButton)
+        }
+    }
+    
+    func toggleRedo(_ enabled:Bool) {
+        
+        if enabled == true{
+            self.showView(redoButton)
+        }else{
+            self.hideView(redoButton)
+        }
+        
+    }
+    
+    // ================================
+    // MARK: - Undo Menu
+    
+    override var canBecomeFirstResponder : Bool {
+        return true
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        
+        
+        if action == #selector(undo(_:)){
+            return undoer.canUndo
+        }
+        if action == #selector(redo(_:)){
+            return undoer.canRedo
+        }
+        
+        return super.canPerformAction(action, withSender: sender)
+    }
+    
+    func undo(_:AnyObject?){
+        undoer.undo()
+    }
+    
+    func redo(_:AnyObject?){
+        undoer.redo()
+    }
+    
+    
+    // ============================================
+    // MARK: - Animation Helpers
+    
+    func showView(_ view: UIView) {
+        animate(0.3) {
+            view.alpha = 1
+        }
+        spring {
+            view.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func hideView(_ view: UIView) {
+        animate(0.2) {
+            view.alpha = 0
+            view.transform = self.kTransformScaleSmall
+        }
+    }
+    
+    let kTransformScaleSmall = CGAffineTransform(scaleX: 0.8, y: 0.8)
+    
+    func spring(_ animations: @escaping () -> Void) {
+        spring(1.3, damping: 0.28, velocity: 50, animations: animations)
+    }
+    
+    func spring(_ duration: Double, damping: CGFloat, velocity: CGFloat, animations: @escaping () -> Void) {
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: damping, initialSpringVelocity: velocity, options: .allowUserInteraction, animations: animations, completion: nil)
+    }
+    
+    func animate(_ duration: Double, animations: @escaping () -> Void) {
+        UIView.animate(withDuration: duration, delay: 0, options: .allowUserInteraction, animations: animations, completion: nil)
+    }
+    
+    func animate(_ duration: Double, delay: Double, animations: @escaping () -> Void) {
+        UIView.animate(withDuration: duration, delay: delay, options: .allowUserInteraction, animations: animations, completion: nil)
+    }
+    
+    
+    // ================================
+    // MARK: - Redo / Undo
+    
+    func registerUndoAddFigure(_ image: UIImageView) {
+        (undoer.prepare(withInvocationTarget: self) as AnyObject).removeImage(fromArray: image)
+        undoer.setActionName("Add Figure")
+    }
+    
+    func registerUndoRemoveFigure(_ imageView: UIImageView) {
+        (undoer.prepare(withInvocationTarget: self) as AnyObject).addImageToBoundarySubView(imageView)
+        undoer.setActionName("Remove Figure")
+    }
+    
+    //Register Undo Move Figure
+    func registerUndoMoveFigure(_ image: UIImageView) {
+        (undoer.prepare(withInvocationTarget: self) as AnyObject).moveImage(image, center: image.center)
+        undoer.setActionName("Move to \(image.center.x) , \(image.center.y)")
+        
+    }
+   
+    @IBAction func handleUndoButton(_ sender: UIButton) {
+         self.undoer.undo()
+    }
+    
+    @IBAction func handleRedoButton(_ sender: UIButton) {
+         self.undoer.redo()
+    }
+    
+    
+    @IBAction func handleCenterButton(_ sender: UIButton) {
+    }
+    
+    func removeImage(fromArray image: UIImageView) {
+        
+        for i in 0..<self.imageViewLayers!.count {
+            
+            
+            if let image = self.imageViewLayers?[i] {
+                
+                if image == selectedImage {
+                    self.imageViewLayers!.remove(at: i)
+                    self.registerUndoRemoveFigure(image)
+                    
+                    let actualFrame = image.bounds
+                    
+                    UIView.animate(withDuration: 0.5, animations: {
+                        
+                        image.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
+                        // image.transform = CGAffineTransformRotate(image.transform, 180)
+                        
+                    }, completion:{ (Bool) in
+                        image.bounds = actualFrame
+                        image.removeFromSuperview()
+                        
+                    })
+                }
+                //self.dismissMenuView()
+                self.removeBorderFromAll()
+            }
+        }
+        
+        self.undoButton.isEnabled = undoer.canUndo == true
+        self.redoButton.isEnabled = undoer.canRedo == true
+    }
+    
+    func moveImage(_ image: UIImageView, center: CGPoint) {
+        self.registerUndoMoveFigure(image)
+        
+        
+        UIView.animate(withDuration: 0.4, delay: 0.1, options: [], animations: {
+            image.center = center
+        }, completion: nil)
+        
+        self.undoButton.isEnabled = undoer.canUndo == true
+        self.redoButton.isEnabled = undoer.canRedo == true
+        //self.checkStatusOfCenterButton()
+        
         
     }
     
@@ -151,8 +342,7 @@ class CanvasViewController: UIViewController {
     }
     
     func addImageToBoundarySubView(_ imageView: UIImageView) {
-//         var actualsize = imageView.frame
-//         actualsize.origin = CGPoint(x: boundaryView.center.x - actualsize.width/2, y: boundaryView.center.y - actualsize.height/2)
+         self.registerUndoAddFigure(imageView)
         
          imageViewLayers!.append(imageView)
          boundaryView.addSubview(imageView)

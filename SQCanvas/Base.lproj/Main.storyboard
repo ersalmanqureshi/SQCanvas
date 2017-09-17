@@ -36,6 +36,9 @@
                                     <constraint firstAttribute="width" secondItem="FMC-8e-fAc" secondAttribute="height" multiplier="1:1" id="ghb-yS-GNJ"/>
                                 </constraints>
                                 <state key="normal" image="ic_undo_btn"/>
+                                <connections>
+                                    <action selector="handleUndoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qda-0E-JqM"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXh-rc-Jy8">
                                 <rect key="frame" x="337" y="459" width="22" height="22"/>
@@ -43,10 +46,16 @@
                                     <constraint firstAttribute="width" secondItem="lXh-rc-Jy8" secondAttribute="height" multiplier="1:1" id="0gU-1h-RQp"/>
                                 </constraints>
                                 <state key="normal" image="ic_center"/>
+                                <connections>
+                                    <action selector="handleCenterButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ths-ue-dkb"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tno-RU-31G">
                                 <rect key="frame" x="54" y="459" width="22" height="22"/>
                                 <state key="normal" image="ic_redo_btn"/>
+                                <connections>
+                                    <action selector="handleRedoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3bT-ZJ-Hd0"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -73,6 +82,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="boundaryView" destination="Ir5-uz-YRh" id="E9Z-ze-ZMI"/>
+                        <outlet property="centerButton" destination="lXh-rc-Jy8" id="Jum-W8-U07"/>
+                        <outlet property="redoButton" destination="tno-RU-31G" id="tcp-4o-2HB"/>
+                        <outlet property="undoButton" destination="FMC-8e-fAc" id="lO7-2U-TGB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
