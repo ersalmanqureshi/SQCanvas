@@ -15,7 +15,7 @@ class CanvasViewController: UIViewController {
     
     let bottomLauncher = BottomLauncherView()
     
-    var selectedImage: UIImage?
+    var selectedImage: UIImageView? = nil
     var imageViewLayers: [UIImageView]? = []
     
     //MARK: Lazy Gesture Inittialization
@@ -56,7 +56,24 @@ class CanvasViewController: UIViewController {
         
         //Set delegate
         bottomLauncher.delegate = self
+        canvasViewTapGesture()
     }
+    
+    //--------------------Canvas View Tap-------------------------
+    func canvasViewTapGesture(){
+        let canvasTap = UITapGestureRecognizer(target: self, action: #selector(canvasViewTap))
+        canvasTap.numberOfTapsRequired = 1
+        //canvasTap.delegate = self
+        boundaryView.addGestureRecognizer(canvasTap)
+    }
+    
+    func canvasViewTap(){
+        self.view.layoutIfNeeded()
+        removeBorderFromAll()
+        //self.dismissMenuView()
+        
+    }
+    
     
     @IBAction func hanldeLauncher(_ sender: UIBarButtonItem) {
         bottomLauncher.showFloaterView()
@@ -65,12 +82,12 @@ class CanvasViewController: UIViewController {
     // MARK: - Action Tap gesture
     func overlayViewDidTap(_ gesture: UITapGestureRecognizer) {
         
-        bringToFrontAndSetBorder(gesture.view! as! UIImageView)
+        bringToFrontAndSetBorder(gesture.view!)
         gesture.view!.becomeFirstResponder()
         
         //self.addNewImageViewLayer()
         self.view.layoutIfNeeded()
-        removeBorderFromAll()
+        //removeBorderFromAll()
        // self.dismissMenuView()
     }
     
@@ -100,6 +117,11 @@ class CanvasViewController: UIViewController {
     
     func setupGesturesdOnImage(_ image: UIImage){
      
+        let pan_gesture : UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(CanvasViewController.handlePanGesture(_:)))
+        let pinch_gesture : UIPinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(CanvasViewController.handlePinchGesture(_:)))
+        let rotate_gesture : UIRotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(CanvasViewController.handleRotateGesture(_:)))
+        let tap_gesture : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CanvasViewController.overlayViewDidTap(_:)))
+        
         var custom_width = image.size.width
         let height_to_width_ratio = image.size.height/image.size.width
         if(image.size.width > boundaryView.bounds.size.width){
@@ -117,25 +139,30 @@ class CanvasViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         
-        imageView.addGestureRecognizer(panGestureRecognizer)
-        imageView.addGestureRecognizer(pinchGestureRecognizer)
-        imageView.addGestureRecognizer(rotationGestureRecognizer)
-        imageView.addGestureRecognizer(tapGestureRecognizer)
+        imageView.addGestureRecognizer(pan_gesture)
+        imageView.addGestureRecognizer(pinch_gesture)
+        imageView.addGestureRecognizer(rotate_gesture)
+        imageView.addGestureRecognizer(tap_gesture)
         imageView.layer.allowsEdgeAntialiasing = true
 
+        selectedImage = imageView
         addImageToBoundarySubView(imageView)
-        bringToFrontAndSetBorder(imageView)
-
+        
     }
     
     func addImageToBoundarySubView(_ imageView: UIImageView) {
-         selectedImage = imageView.image
+//         var actualsize = imageView.frame
+//         actualsize.origin = CGPoint(x: boundaryView.center.x - actualsize.width/2, y: boundaryView.center.y - actualsize.height/2)
+        
          imageViewLayers!.append(imageView)
          boundaryView.addSubview(imageView)
+        
+         bringToFrontAndSetBorder(imageView)
     }
     
-    func bringToFrontAndSetBorder(_ imageView : UIImageView) {
+    func bringToFrontAndSetBorder(_ view : UIView) {
         
+        let imageView = view as! UIImageView
         //called when image is tapped
         for i in 0..<imageViewLayers!.count{
             if(imageViewLayers?[i] == imageView){
@@ -146,21 +173,22 @@ class CanvasViewController: UIViewController {
         
         imageViewLayers?.append(imageView)
 
-        makeImageViewsTransparent()
         setImageBorder(imageView)
+        makeImageViewsTransparent()
+        
         
         // view.superview!.bringSubviewToFront(view)
         navigationController?.navigationBar.sendSubview(toBack: imageView)
         imageView.layer.zPosition = -1
-        imageView.layer.borderWidth = 1
+        imageView.layer.borderWidth = 2
         imageView.alpha = 1.0
     }
     
     func setImageBorder(_ imageView: UIImageView) {
-        imageView.layer.borderColor = UIColor.black.cgColor
-        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.blue.cgColor
+        imageView.layer.borderWidth = 2
         imageView.alpha = 1
-        selectedImage = imageView.image
+        selectedImage = imageView
     }
     
     //Remove Border
