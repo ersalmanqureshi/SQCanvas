@@ -10,7 +10,7 @@ import Foundation
 
 import UIKit
 
-class MenuItemView: UIView {
+class MenuView: UIView {
     
     @IBOutlet var view: UIView!
     
@@ -27,7 +27,7 @@ class MenuItemView: UIView {
     @IBOutlet weak var deleteButtonTap: UIButton!
     @IBOutlet weak var flipButtonTap: UIButton!
     @IBOutlet weak var cloneButtonTap: UIButton!
-    @IBOutlet weak var cutoutButtonTap: UIButton!
+    @IBOutlet weak var flopButtonTap: UIButton!
     @IBOutlet weak var forwardButtonTap: UIButton!
     @IBOutlet weak var backwardButtonTap: UIButton!    
     
