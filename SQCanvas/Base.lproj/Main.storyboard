@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8pT-10-XEJ">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8pT-10-XEJ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -29,12 +30,38 @@
                                     <constraint firstAttribute="width" secondItem="Ir5-uz-YRh" secondAttribute="height" multiplier="1:1" id="Tzm-vp-C03"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMC-8e-fAc">
+                                <rect key="frame" x="16" y="459" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="FMC-8e-fAc" secondAttribute="height" multiplier="1:1" id="ghb-yS-GNJ"/>
+                                </constraints>
+                                <state key="normal" image="ic_undo_btn"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXh-rc-Jy8">
+                                <rect key="frame" x="337" y="459" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lXh-rc-Jy8" secondAttribute="height" multiplier="1:1" id="0gU-1h-RQp"/>
+                                </constraints>
+                                <state key="normal" image="ic_center"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tno-RU-31G">
+                                <rect key="frame" x="54" y="459" width="22" height="22"/>
+                                <state key="normal" image="ic_redo_btn"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ir5-uz-YRh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1Xg-qn-Vcq"/>
+                            <constraint firstItem="tno-RU-31G" firstAttribute="leading" secondItem="FMC-8e-fAc" secondAttribute="trailing" constant="16" id="F9f-tQ-Rfy"/>
+                            <constraint firstItem="tno-RU-31G" firstAttribute="centerY" secondItem="FMC-8e-fAc" secondAttribute="centerY" id="Fw2-de-PXp"/>
                             <constraint firstAttribute="trailing" secondItem="Ir5-uz-YRh" secondAttribute="trailing" id="Klq-uv-GcU"/>
+                            <constraint firstItem="tno-RU-31G" firstAttribute="height" secondItem="FMC-8e-fAc" secondAttribute="height" id="MV4-6a-71l"/>
+                            <constraint firstItem="tno-RU-31G" firstAttribute="width" secondItem="FMC-8e-fAc" secondAttribute="width" id="QJt-Jy-gNw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lXh-rc-Jy8" secondAttribute="trailing" id="YG4-ID-u1F"/>
                             <constraint firstItem="Ir5-uz-YRh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="a2Z-6u-w1t"/>
+                            <constraint firstItem="FMC-8e-fAc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="aTy-Pg-w45"/>
+                            <constraint firstItem="lXh-rc-Jy8" firstAttribute="centerY" secondItem="FMC-8e-fAc" secondAttribute="centerY" id="iqr-eR-fK7"/>
+                            <constraint firstItem="FMC-8e-fAc" firstAttribute="top" secondItem="Ir5-uz-YRh" secondAttribute="bottom" constant="12" id="jbd-4W-akK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Canvas" id="Vo5-9Y-tXk">
@@ -71,4 +98,9 @@
             <point key="canvasLocation" x="117.59999999999999" y="-559.07046476761627"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic_center" width="22" height="22"/>
+        <image name="ic_redo_btn" width="22" height="22"/>
+        <image name="ic_undo_btn" width="22" height="22"/>
+    </resources>
 </document>
