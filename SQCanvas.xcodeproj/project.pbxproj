@@ -18,6 +18,8 @@
 		4CFC7CD31EB00D0E000EC504 /* BottomLauncherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC7CD21EB00D0E000EC504 /* BottomLauncherModel.swift */; };
 		4CFC7CD51EB00E6A000EC504 /* BottomLauncherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC7CD41EB00E6A000EC504 /* BottomLauncherView.swift */; };
 		4CFC7CD71EB00F65000EC504 /* BottomLauncherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFC7CD61EB00F65000EC504 /* BottomLauncherCell.swift */; };
+		5CF79AE81F6EC73600CE3038 /* NSObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF79AE71F6EC73600CE3038 /* NSObserver.swift */; };
+		5CF79AEA1F6EC76700CE3038 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF79AE91F6EC76700CE3038 /* Notifications.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		4CFC7CD21EB00D0E000EC504 /* BottomLauncherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomLauncherModel.swift; sourceTree = "<group>"; };
 		4CFC7CD41EB00E6A000EC504 /* BottomLauncherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomLauncherView.swift; sourceTree = "<group>"; };
 		4CFC7CD61EB00F65000EC504 /* BottomLauncherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomLauncherCell.swift; sourceTree = "<group>"; };
+		5CF79AE71F6EC73600CE3038 /* NSObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObserver.swift; sourceTree = "<group>"; };
+		5CF79AE91F6EC76700CE3038 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 		4CFC7C9E1EB007AF000EC504 /* SQCanvas */ = {
 			isa = PBXGroup;
 			children = (
+				5CF79AE61F6EC70700CE3038 /* Helpers */,
 				4CFC7C9F1EB007AF000EC504 /* AppDelegate.swift */,
 				4CFC7CD11EB00CB2000EC504 /* Model */,
 				4CFC7CD01EB00CAB000EC504 /* View */,
@@ -175,6 +180,15 @@
 				4CFC7CA31EB007AF000EC504 /* Main.storyboard */,
 			);
 			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		5CF79AE61F6EC70700CE3038 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				5CF79AE71F6EC73600CE3038 /* NSObserver.swift */,
+				5CF79AE91F6EC76700CE3038 /* Notifications.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,10 +329,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C374EA91EC85CB100068297 /* CanvasViewController+Extensions.swift in Sources */,
+				5CF79AE81F6EC73600CE3038 /* NSObserver.swift in Sources */,
 				4CFC7CD31EB00D0E000EC504 /* BottomLauncherModel.swift in Sources */,
 				4CFC7CD51EB00E6A000EC504 /* BottomLauncherView.swift in Sources */,
 				4CFC7CA21EB007AF000EC504 /* CanvasViewController.swift in Sources */,
 				4CFC7CA01EB007AF000EC504 /* AppDelegate.swift in Sources */,
+				5CF79AEA1F6EC76700CE3038 /* Notifications.swift in Sources */,
 				4CFC7CD71EB00F65000EC504 /* BottomLauncherCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
