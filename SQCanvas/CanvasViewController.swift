@@ -94,42 +94,42 @@ class CanvasViewController: UIViewController {
     @IBAction func handleCenterButton(_ sender: UIButton) {
     }
     
-//    func removeImage(fromArray image: UIImageView) {
-//        
-//        for i in 0..<self.imageViewLayers!.count {
-//            
-//            
-//            if let image = self.imageViewLayers?[i] {
-//                
-//                if image == selectedImage {
-//                    self.imageViewLayers!.remove(at: i)
-//                    self.registerUndoRemoveFigure(image)
-//                    
-//                    let actualFrame = image.bounds
-//                    
-//                    UIView.animate(withDuration: 0.5, animations: {
-//                        
-//                        image.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
-//                        // image.transform = CGAffineTransformRotate(image.transform, 180)
-//                        
-//                    }, completion:{ (Bool) in
-//                        image.bounds = actualFrame
-//                        image.removeFromSuperview()
-//                        
-//                    })
-//                }
-//                //self.dismissMenuView()
-//                self.removeBorderFromAll()
-//            }
-//        }
-//        
-//        self.undoButton.isEnabled = undoer.canUndo == true
-//        self.redoButton.isEnabled = undoer.canRedo == true
-//    }
+    func removeImage(fromArray image: UIImageView) {
+        
+        for i in 0..<self.imageViewLayers!.count {
+            
+            
+            if let image = self.imageViewLayers?[i] {
+                
+                if image == selectedImage {
+                    self.imageViewLayers!.remove(at: i)
+                    self.registerUndoRemoveFigure(image)
+                    
+                    let actualFrame = image.bounds
+                    
+                    UIView.animate(withDuration: 0.5, animations: {
+                        
+                        image.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
+                        // image.transform = CGAffineTransformRotate(image.transform, 180)
+                        
+                    }, completion:{ (Bool) in
+                        image.bounds = actualFrame
+                        image.removeFromSuperview()
+                        
+                    })
+                }
+                //self.dismissMenuView()
+                self.removeBorderFromAll()
+            }
+        }
+        
+        self.undoButton.isEnabled = undoer.canUndo == true
+        self.redoButton.isEnabled = undoer.canRedo == true
+    }
     
     func moveImage(_ image: UIImageView, center: CGPoint) {
-        self.registerUndoMoveFigure(image)
         
+        self.registerUndoMoveFigure(image)
         
         UIView.animate(withDuration: 0.4, delay: 0.1, options: [], animations: {
             image.center = center
@@ -138,8 +138,6 @@ class CanvasViewController: UIViewController {
         self.undoButton.isEnabled = undoer.canUndo == true
         self.redoButton.isEnabled = undoer.canRedo == true
         //self.checkStatusOfCenterButton()
-        
-        
     }
     
     
@@ -376,7 +374,6 @@ class CanvasViewController: UIViewController {
         setImageBorder(imageView)
         makeImageViewsTransparent()
         
-        
         // view.superview!.bringSubviewToFront(view)
         navigationController?.navigationBar.sendSubview(toBack: imageView)
         imageView.layer.zPosition = -1
@@ -411,7 +408,6 @@ class CanvasViewController: UIViewController {
             let image = imageViewLayers![i]
             image.alpha = 0.4
             image.layer.borderColor = UIColor.clear.cgColor
-            
         }
     }
     
@@ -423,10 +419,10 @@ class CanvasViewController: UIViewController {
         undoer.setActionName("Add Figure")
     }
     
-    //    func registerUndoRemoveFigure(_ imageView: UIImageView) {
-    //        (undoer.prepare(withInvocationTarget: self) as AnyObject).addImageToBoundarySubView(imageView)
-    //        undoer.setActionName("Remove Figure")
-    //    }
+    func registerUndoRemoveFigure(_ imageView: UIImageView) {
+        (undoer.prepare(withInvocationTarget: self) as AnyObject).removeImage(fromArray: imageView)
+        undoer.setActionName("Remove Figure")
+    }
     
     //Register Undo Move Figure
     func registerUndoMoveFigure(_ image: UIImageView) {
