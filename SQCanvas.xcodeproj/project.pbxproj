@@ -22,6 +22,7 @@
 		5CF79AEA1F6EC76700CE3038 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF79AE91F6EC76700CE3038 /* Notifications.swift */; };
 		5CF79AEC1F6F019D00CE3038 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF79AEB1F6F019D00CE3038 /* MenuView.swift */; };
 		5CF79AF01F6F04CC00CE3038 /* Menu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CF79AEF1F6F04CC00CE3038 /* Menu.xib */; };
+		5CF79AF21F6F2E2900CE3038 /* MenuLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF79AF11F6F2E2900CE3038 /* MenuLauncher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		5CF79AE91F6EC76700CE3038 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5CF79AEB1F6F019D00CE3038 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		5CF79AEF1F6F04CC00CE3038 /* Menu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Menu.xib; sourceTree = "<group>"; };
+		5CF79AF11F6F2E2900CE3038 /* MenuLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuLauncher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				4CFC7CD21EB00D0E000EC504 /* BottomLauncherModel.swift */,
+				5CF79AF11F6F2E2900CE3038 /* MenuLauncher.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				4CFC7CA21EB007AF000EC504 /* CanvasViewController.swift in Sources */,
 				4CFC7CA01EB007AF000EC504 /* AppDelegate.swift in Sources */,
 				5CF79AEA1F6EC76700CE3038 /* Notifications.swift in Sources */,
+				5CF79AF21F6F2E2900CE3038 /* MenuLauncher.swift in Sources */,
 				4CFC7CD71EB00F65000EC504 /* BottomLauncherCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
