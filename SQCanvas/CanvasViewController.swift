@@ -61,6 +61,8 @@ class CanvasViewController: UIViewController {
     
     let kTransformScaleSmall = CGAffineTransform(scaleX: 0.8, y: 0.8)
     
+    let mainscreenWidth = UIScreen.main.bounds.width - 16
+    
     //MARK: View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +70,8 @@ class CanvasViewController: UIViewController {
         //Set delegate
         bottomLauncher.delegate = self
         canvasViewTapGesture()
+        
+        checkStatusOfCenterButton()
     }
     
     //--------------------Canvas View Tap-------------------------
@@ -92,6 +96,105 @@ class CanvasViewController: UIViewController {
     
     
     @IBAction func handleCenterButton(_ sender: UIButton) {
+        // get all subview postions before resize, pass through undo
+        
+        if(self.imageViewLayers!.count > 0) {
+            let temparray = NSMutableArray()
+            
+            for v in self.boundaryView.subviews as! [UIImageView]
+            {
+                
+                //make dictionary of item then add it to temp array
+                let tempdic = NSMutableDictionary()
+                
+                // tempdic.setObject(v, forKey: "view")
+                tempdic.setObject(v.transform.a, forKey: "transforma" as NSCopying)
+                tempdic.setObject(v.transform.b, forKey: "transformb" as NSCopying)
+                tempdic.setObject(v.transform.c, forKey: "transformc" as NSCopying)
+                tempdic.setObject(v.transform.d, forKey: "transformd" as NSCopying)
+                tempdic.setObject(v.transform.tx, forKey: "transformtx" as NSCopying)
+                tempdic.setObject(v.transform.ty, forKey: "transformty" as NSCopying)
+                
+                tempdic.setObject(v.center.x, forKey: "framex" as NSCopying)
+                tempdic.setObject(v.center.y, forKey: "framey" as NSCopying)
+                
+                tempdic.setObject(v.frame.size.width, forKey: "framew" as NSCopying)
+                tempdic.setObject(v.frame.size.height, forKey: "frameh" as NSCopying)
+                tempdic.setObject(v, forKey: "imageview" as NSCopying)
+                
+                temparray.add(tempdic)
+            }
+            
+            setUndoForResize(self.boundaryView, values: temparray)
+            resize()
+            
+            self.view.layoutIfNeeded()
+            centerButton.isEnabled = false
+        }
+    }
+    
+    func setUndoForResize(_ canvas : UIView, values : NSMutableArray) {
+        (undoer.prepare(withInvocationTarget: self) as AnyObject).undoResize(canvas, values: values)
+    }
+    
+    func undoResize(_ canvas : UIView,values : NSMutableArray){
+        
+        self.centerButton.isEnabled = true
+        
+        let temparray = NSMutableArray()
+        
+        for v in self.boundaryView.subviews as! [UIImageView] {
+            
+            //make dictionary of item then add it to temp array
+            let tempdic = NSMutableDictionary()
+            
+            // tempdic.setObject(v, forKey: "view")
+            tempdic.setObject(v.transform.a, forKey: "transforma" as NSCopying)
+            tempdic.setObject(v.transform.b, forKey: "transformb" as NSCopying)
+            tempdic.setObject(v.transform.c, forKey: "transformc" as NSCopying)
+            tempdic.setObject(v.transform.d, forKey: "transformd" as NSCopying)
+            tempdic.setObject(v.transform.tx, forKey: "transformtx" as NSCopying)
+            tempdic.setObject(v.transform.ty, forKey: "transformty" as NSCopying)
+            
+            tempdic.setObject(v.center.x, forKey: "framex" as NSCopying)
+            tempdic.setObject(v.center.y, forKey: "framey" as NSCopying)
+            
+            tempdic.setObject(v.frame.size.width, forKey: "framew" as NSCopying)
+            tempdic.setObject(v.frame.size.height, forKey: "frameh" as NSCopying)
+            tempdic.setObject(v, forKey: "imageview" as NSCopying)
+            
+            temparray.add(tempdic)
+        }
+        
+        
+        self.setUndoForResize(canvas, values: temparray)
+        
+        //change postions to old one
+        
+        for x in canvas.subviews as! [UIImageView]
+        {
+            x.removeFromSuperview()
+        }
+        
+        self.setUndoForResize(canvas, values: values)
+        for v in values
+        {
+            
+            let a = (v as AnyObject).object(forKey: "imageview") as! UIImageView
+            
+            //   a.bounds = CGRectMake(0,0, v.objectForKey("framew") as! CGFloat, v.objectForKey("frameh") as! CGFloat)
+            
+            a.transform = CGAffineTransform(a: (v as AnyObject).object(forKey: "transforma") as! CGFloat, b: (v as AnyObject).object(forKey: "transformb") as! CGFloat, c: (v as AnyObject).object(forKey: "transformc") as! CGFloat, d: (v as AnyObject).object(forKey: "transformd") as! CGFloat, tx: (v as AnyObject).object(forKey: "transformtx") as! CGFloat, ty: (v as AnyObject).object(forKey: "transformty") as! CGFloat)
+            
+            // var tb = CGRectApplyAffineTransform(a.bounds, t)
+            // a.bounds = tb
+            
+            a.center = CGPoint(x: (v as AnyObject).object(forKey: "framex") as! CGFloat, y: (v as AnyObject).object(forKey: "framey") as! CGFloat)
+            self.boundaryView.addSubview(a)
+        }
+        
+        self.undoButton.isEnabled = undoer.canUndo == true
+        self.redoButton.isEnabled = undoer.canRedo == true
     }
     
     func removeImage(fromArray image: UIImageView) {
@@ -137,7 +240,7 @@ class CanvasViewController: UIViewController {
         
         self.undoButton.isEnabled = undoer.canUndo == true
         self.redoButton.isEnabled = undoer.canRedo == true
-        //self.checkStatusOfCenterButton()
+        self.checkStatusOfCenterButton()
     }
     
     
@@ -183,7 +286,7 @@ class CanvasViewController: UIViewController {
             self.undoButton.isEnabled = undoer.canUndo == true
             self.redoButton.isEnabled = undoer.canRedo == true
             
-            //self.checkStatusOfCenterButton()\
+            self.checkStatusOfCenterButton()
         }
     }
     
@@ -215,7 +318,7 @@ class CanvasViewController: UIViewController {
             self.undoButton.isEnabled = undoer.canUndo == true
             self.redoButton.isEnabled = undoer.canRedo == true
             
-            //self.checkStatusOfCenterButton()
+            self.checkStatusOfCenterButton()
         }
     }
     
@@ -239,7 +342,7 @@ class CanvasViewController: UIViewController {
         self.undoButton.isEnabled = undoer.canUndo == true
         self.redoButton.isEnabled = undoer.canRedo == true
         
-       // self.checkStatusOfCenterButton()
+        self.checkStatusOfCenterButton()
     }
 
     // MARK: - Action Pinch gesture recognizer
@@ -271,7 +374,7 @@ class CanvasViewController: UIViewController {
             self.undoButton.isEnabled = undoer.canUndo == true
             self.redoButton.isEnabled = undoer.canRedo == true
             
-            //self.checkStatusOfCenterButton()
+            self.checkStatusOfCenterButton()
         }
         
     }
@@ -298,7 +401,7 @@ class CanvasViewController: UIViewController {
         
         self.undoButton.isEnabled = undoer.canUndo == true
         self.redoButton.isEnabled = undoer.canRedo == true
-        //self.checkStatusOfCenterButton()
+        self.checkStatusOfCenterButton()
         
         
         //        self.registerUndoMoveFigure(image)
@@ -401,7 +504,7 @@ class CanvasViewController: UIViewController {
         }
     }
     
-    func makeImageViewsTransparent(){  //similar to polyvore
+    func makeImageViewsTransparent(){
 
         for i in 0..<imageViewLayers!.count{
             
@@ -429,6 +532,156 @@ class CanvasViewController: UIViewController {
         (undoer.prepare(withInvocationTarget: self) as AnyObject).moveImage(image, center: image.center)
         undoer.setActionName("Move to \(image.center.x) , \(image.center.y)")
         
+    }
+    
+    
+    func checkStatusOfCenterButton(){
+        
+        self.centerButton.isEnabled = false
+        
+        if(undoer.canUndo || undoer.canRedo) {
+            self.centerButton.isEnabled = true
+        }
+        
+        //        for v in drawableView.subviews{
+        //
+        //          if (drawableView.bounds.contains(v.frame) == false)
+        //          {
+        //            self.centerButton.enabled = true
+        //            break
+        //
+        //
+        //            }
+        //
+        //
+        ////            let x = v.center.x + (v.bounds.size.width / 2)
+        ////            let y = v.center.y + (v.bounds.size.height / 2)
+        ////
+        ////            if(x > drawableView.frame.size.width || y > drawableView.frame.size.height)
+        ////            {
+        ////                
+        ////                
+        ////            }
+        //            
+        //        
+        //            
+        //        }
+    }
+    
+    
+    func resize(){
+        /*
+         resize canvas according to bounds of items and scale each item back to orginal size.
+         same logic incase of getting server values and scaling or uploading values to server.
+         */
+        
+        var width : CGFloat = 0
+        var height : CGFloat = 0
+        
+        var minx : CGFloat = CGFloat.infinity
+        var miny : CGFloat = CGFloat.infinity
+        
+        var maxw : CGFloat = -CGFloat.infinity
+        var maxh : CGFloat = -CGFloat.infinity
+        
+        print("------------Start-----------")
+        print("minx: \(minx), minY: \(miny), maxw: \(maxw), maxh: \(maxh)")
+        
+        for imageView in boundaryView.subviews {
+            if(minx >  imageView.center.x) {
+                minx = imageView.center.x
+            }
+            
+            if(miny >  imageView.center.y) {
+                miny = imageView.center.y
+            }
+            
+            if(maxw < imageView.frame.size.width) {
+                maxw = imageView.frame.size.width
+            }
+            
+            if(maxh < imageView.frame.size.height)  {
+                maxh = imageView.frame.size.height
+            }
+            
+            print("minx: \(minx), minY: \(miny), maxw: \(maxw), maxh: \(maxh)")
+        }
+        
+        minx = minx - maxw / 2
+        miny = miny - maxh / 2
+        
+        print("min - max / 2 ----- minx: \(minx), minY: \(miny))")
+        
+        for v in boundaryView.subviews{
+            
+            var fw : CGFloat = 0
+            var fh  : CGFloat = 0
+            
+            if(v.frame.origin.x < 0 ){
+                
+                fw  =  v.frame.size.width
+            }else{
+                fw  = v.frame.origin.x + v.frame.size.width + 10
+            }
+            
+            if(v.frame.origin.y < 0){
+                fh  = v.frame.size.height
+            }else{
+                fh = v.frame.origin.y + v.frame.size.height + 10
+            }
+            
+            if(width < fw){
+                width = fw
+            }
+            
+            if(height < fh){
+                height = fh
+            }
+            
+            print("Frame width --- width: \(width), height: \(height))")
+        }
+        
+        width =  width - minx
+        height = height - miny
+        
+        print("width/height - min x/y --- width: \(width), height: \(height))")
+        
+        if(width > height) {
+            boundaryView.frame = CGRect(x: 0, y: (navigationController?.navigationBar.frame.height)! + 16, width: width, height: width)
+        } else {
+            boundaryView.frame = CGRect(x: 0,y: (navigationController?.navigationBar.frame.height)! + 16, width: height, height: height)
+        }
+        
+        print("drawableView.frame: \(boundaryView.frame)")
+        
+        for imageView in boundaryView.subviews {
+            imageView.center = CGPoint(x: imageView.center.x - minx, y: imageView.center.y - miny)
+            //   v.center = CGPointMake(  v.center.x + 10, v.center.y + 10)
+        }
+        
+        // println("canvas : \(canvasView.frame)")
+        let ratio = mainscreenWidth / boundaryView.frame.size.width
+        print("ratio: \(ratio), mainscreenWith: \(mainscreenWidth) & drawable frame: \(boundaryView.frame.size.width)")
+        
+        boundaryView.frame = CGRect(x: 8, y: (navigationController?.navigationBar.frame.height)! + 16, width: mainscreenWidth, height: mainscreenWidth)
+        
+        // drawableView.center = self.view.center
+        
+        boundaryView.layoutIfNeeded()
+        
+        for subView in boundaryView.subviews {
+            //subView.bounds = CGRect(x: 0, y: navigationBar.frame.size.height + 20, width: subView.frame.size.width * ratio, height: subView.frame.size.height * ratio)
+            subView.center = CGPoint(x: subView.center.x * ratio, y: subView.center.y * ratio)
+            
+            subView.bounds.size.width = subView.bounds.size.width * ratio
+            subView.bounds.size.height = subView.bounds.size.height * ratio
+            
+            print("SubView Frame \(subView.frame)")
+            print("SubView Bounds\(subView.bounds)")
+            
+            //subView.layoutIfNeeded()
+
+        }
     }
     
     //MARK: Selection from camera or gallery

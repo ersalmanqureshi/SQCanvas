@@ -24,16 +24,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ir5-uz-YRh">
-                                <rect key="frame" x="0.0" y="72" width="375" height="375"/>
+                                <rect key="frame" x="8" y="72" width="359" height="359"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Ir5-uz-YRh" secondAttribute="height" multiplier="1:1" id="Tzm-vp-C03"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMC-8e-fAc">
-                                <rect key="frame" x="16" y="459" width="22" height="22"/>
+                                <rect key="frame" x="16" y="443" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="FMC-8e-fAc" secondAttribute="height" multiplier="1:1" id="ghb-yS-GNJ"/>
+                                    <constraint firstAttribute="width" secondItem="FMC-8e-fAc" secondAttribute="height" multiplier="1:1" id="PSc-3L-jxx"/>
+                                    <constraint firstAttribute="width" constant="44" id="b1q-UY-m3y"/>
+                                    <constraint firstAttribute="height" constant="44" id="kN2-NK-Db1"/>
                                 </constraints>
                                 <state key="normal" image="ic_undo_btn"/>
                                 <connections>
@@ -41,17 +43,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXh-rc-Jy8">
-                                <rect key="frame" x="337" y="459" width="22" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="lXh-rc-Jy8" secondAttribute="height" multiplier="1:1" id="0gU-1h-RQp"/>
-                                </constraints>
+                                <rect key="frame" x="315" y="443" width="44" height="44"/>
                                 <state key="normal" image="ic_center"/>
                                 <connections>
                                     <action selector="handleCenterButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ths-ue-dkb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tno-RU-31G">
-                                <rect key="frame" x="54" y="459" width="22" height="22"/>
+                                <rect key="frame" x="76" y="443" width="44" height="44"/>
                                 <state key="normal" image="ic_redo_btn"/>
                                 <connections>
                                     <action selector="handleRedoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3bT-ZJ-Hd0"/>
@@ -60,17 +59,19 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Ir5-uz-YRh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1Xg-qn-Vcq"/>
+                            <constraint firstItem="tno-RU-31G" firstAttribute="width" secondItem="FMC-8e-fAc" secondAttribute="width" id="0vU-hx-sky"/>
+                            <constraint firstItem="Ir5-uz-YRh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="1Xg-qn-Vcq"/>
                             <constraint firstItem="tno-RU-31G" firstAttribute="leading" secondItem="FMC-8e-fAc" secondAttribute="trailing" constant="16" id="F9f-tQ-Rfy"/>
                             <constraint firstItem="tno-RU-31G" firstAttribute="centerY" secondItem="FMC-8e-fAc" secondAttribute="centerY" id="Fw2-de-PXp"/>
-                            <constraint firstAttribute="trailing" secondItem="Ir5-uz-YRh" secondAttribute="trailing" id="Klq-uv-GcU"/>
-                            <constraint firstItem="tno-RU-31G" firstAttribute="height" secondItem="FMC-8e-fAc" secondAttribute="height" id="MV4-6a-71l"/>
-                            <constraint firstItem="tno-RU-31G" firstAttribute="width" secondItem="FMC-8e-fAc" secondAttribute="width" id="QJt-Jy-gNw"/>
+                            <constraint firstItem="lXh-rc-Jy8" firstAttribute="width" secondItem="FMC-8e-fAc" secondAttribute="width" id="HgB-rE-VZr"/>
+                            <constraint firstAttribute="trailing" secondItem="Ir5-uz-YRh" secondAttribute="trailing" constant="8" id="Klq-uv-GcU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lXh-rc-Jy8" secondAttribute="trailing" id="YG4-ID-u1F"/>
                             <constraint firstItem="Ir5-uz-YRh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="a2Z-6u-w1t"/>
                             <constraint firstItem="FMC-8e-fAc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="aTy-Pg-w45"/>
                             <constraint firstItem="lXh-rc-Jy8" firstAttribute="centerY" secondItem="FMC-8e-fAc" secondAttribute="centerY" id="iqr-eR-fK7"/>
                             <constraint firstItem="FMC-8e-fAc" firstAttribute="top" secondItem="Ir5-uz-YRh" secondAttribute="bottom" constant="12" id="jbd-4W-akK"/>
+                            <constraint firstItem="lXh-rc-Jy8" firstAttribute="height" secondItem="FMC-8e-fAc" secondAttribute="height" id="oAC-cE-fPK"/>
+                            <constraint firstItem="tno-RU-31G" firstAttribute="height" secondItem="FMC-8e-fAc" secondAttribute="height" id="tkc-07-awn"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Canvas" id="Vo5-9Y-tXk">
