@@ -63,12 +63,16 @@ class CanvasViewController: UIViewController {
     
     let mainscreenWidth = UIScreen.main.bounds.width - 16
     
+    var menuView: MenuLauncher?
+    
     //MARK: View controller lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Set delegate
         bottomLauncher.delegate = self
+        registerObservers()
+        menuLauncher()
         canvasViewTapGesture()
         
         checkStatusOfCenterButton()
@@ -84,6 +88,210 @@ class CanvasViewController: UIViewController {
     func canvasViewTap(){
         self.view.layoutIfNeeded()
         removeBorderFromAll()
+        dismissMenuView()
+    }
+    
+    //MARK: When user tap on image this function will be called to perform approrpiate action.
+    func menuLauncher(){
+        
+        menuView = MenuLauncher()
+        menuView?.menuItemView.deleteButtonTap.addTarget(self, action: #selector(deleteImageView(_:)), for: .touchUpInside)
+        menuView?.menuItemView.flipButtonTap.addTarget(self, action: #selector(flipImageView(_:)), for: .touchUpInside)
+        menuView?.menuItemView.cloneButtonTap.addTarget(self, action: #selector(cloneImageView(_:)), for: .touchUpInside)
+//        menuView?.menuItemView.cutoutButtonTap.addTarget(self, action: #selector(sendToFreeCrop(_:)), for: .touchUpInside)
+//        
+        menuView?.menuItemView.forwardButtonTap.addTarget(self, action: #selector(bringSubViewForward(_:)), for: .touchUpInside)
+        menuView?.menuItemView.backwardButtonTap.addTarget(self, action: #selector(bringSubViewBackward(_:)), for: .touchUpInside)
+    }
+    
+    func deleteImageView(_ sender : UIButton){
+        removeImage(fromArray: selectedImage!)
+    }
+    
+    func flipImageView(_ sender : UIButton)
+    {
+        (self.undoer.prepare(withInvocationTarget: self) as AnyObject).flipImageView(sender)
+        
+        //img?.layer.setAffineTransform(CGAffineTransformScale(img!.transform , -1.0 , 1.0))
+        if(selectedImage?.image!.imageOrientation ==  UIImageOrientation.upMirrored)
+        {
+            selectedImage?.image = UIImage(cgImage: selectedImage!.image!.cgImage! ,scale: selectedImage!.image!.scale,orientation: UIImageOrientation.up)
+        } else {
+            selectedImage?.image = UIImage(cgImage: selectedImage!.image!.cgImage! ,scale: selectedImage!.image!.scale,orientation: UIImageOrientation.upMirrored)
+        }
+        print("Flip Called")
+        
+        self.undoButton.isEnabled = undoer.canUndo == true
+        self.redoButton.isEnabled = undoer.canRedo == true
+        
+    }
+    
+    func cloneImageView(_ sender : UIButton)
+    {
+        
+        for i in 0..<self.imageViewLayers!.count {
+            let imageView = self.imageViewLayers![i]
+            
+            if imageView == selectedImage {
+                setupGesturesdOnImage(imageView.image!)
+            }
+        }
+        
+        print("Clone Called")
+        // selectedImg = nil
+        
+        // menuView?.handleCanvasDismiss()
+    }
+    
+    //forward and backword buttons
+    
+    func bringSubViewForward(_ sender : UIMenuItem){
+        
+        (undoer.prepare(withInvocationTarget: self) as AnyObject).subViewBackward(self.selectedImage!)
+        
+        self.subViewForward(self.selectedImage!)
+        
+    }
+    
+    //MARK: Logic to move select image forward
+    func subViewForward(_ view : UIImageView){
+        
+        let imgArray = self.boundaryView.subviews
+        
+        let iarray = 0
+        
+        for i in 0..<imgArray.count{
+            let img = imgArray[i]
+            
+            if(img == view){
+                break
+            }
+        }
+        
+        //        for (i = 0; i < imgArray.count ; i = i + 1 ){
+        //
+        //
+        //
+        //        }
+        
+        self.boundaryView.exchangeSubview(at: iarray + 1, withSubviewAt: iarray)
+        
+        self.exchangeObjectsInArray(self.imageViewLayers!, withfirstValue: iarray, secondValue: iarray + 1)
+        
+        //        self.exchangeObjectsInArray(self.product_ids!, withfirstValue: i, secondValue: i + 1)
+        //        self.exchangeObjectsInArray(self.canvasImageIds!, withfirstValue: i, secondValue: i + 1)
+        
+        self.checkSubviewPositionAndShowMenuView()
+        
+    }
+    
+    //MARK: Logic to move select image backward
+    func subViewBackward(_ view : UIImageView){
+        let imgArray = self.boundaryView.subviews
+        
+        
+        var iarray = 0
+        
+        for i in 0..<imgArray.count {
+            let img = imgArray[i]
+            
+            if(img == self.selectedImage){
+                break
+            }
+        }
+        
+        self.boundaryView.exchangeSubview(at: iarray - 1, withSubviewAt: iarray)
+        
+        self.exchangeObjectsInArray(self.imageViewLayers!, withfirstValue: iarray, secondValue: iarray - 1)
+        
+        //        self.exchangeObjectsInArray(self.product_ids!, withfirstValue: i, secondValue: i - 1)
+        //        self.exchangeObjectsInArray(self.canvasImageIds!, withfirstValue: i, secondValue: i - 1)
+        //
+        self.checkSubviewPositionAndShowMenuView()
+    }
+    
+    //MARK: Menu backward button tap
+    func bringSubViewBackward(_ sender : UIMenuItem){
+        
+        (undoer.prepare(withInvocationTarget: self) as AnyObject).subViewForward(self.selectedImage!)
+        
+        self.subViewBackward(self.selectedImage!)
+        
+    }
+    
+    func exchangeObjectsInArray(_ array : [AnyObject]?, withfirstValue valueOne : Int , secondValue valueTwo : Int)
+    {
+        var array = array
+        let firstValue = array![valueOne]
+        let secondValue = array![valueTwo]
+        
+        array![valueTwo] = firstValue
+        array![valueOne] = secondValue
+    }
+    
+    //menuview dismiss
+    func dismissMenuView(){
+        
+        self.menuView?.handleCanvasDismiss()
+        //self.selectedGestureView.isHidden = true
+        
+    }
+    
+    //menuview show
+    func showMenuView(){
+        
+        self.menuView?.showCanvasView()
+       // self.selectedGestureView.isHidden = false
+    }
+    
+    func checkSubviewPositionAndShowMenuView(){
+        
+        menuView?.menuItemView.forwardButtonTap.isEnabled = true
+        menuView?.menuItemView.backwardButtonTap.isEnabled = true
+        
+        let imgArray = self.boundaryView.subviews
+        
+        let i = 0
+        
+        
+        for i in 0..<imgArray.count{
+            let img = imgArray[i]
+            
+            if(img == self.selectedImage){
+                break
+            }
+        }
+        
+        //        for (i = 0; i < imgArray.count ; i = i + 1 ){
+        //
+        //
+        //            let img = imgArray[i]
+        //
+        //            if(img == self.selectedImg)
+        //            {
+        //
+        //                break
+        //
+        //            }
+        //
+        //        }
+        
+        
+        
+        if(i == imgArray.count - 1 )
+        {
+            
+            //no forward
+            menuView?.menuItemView.forwardButtonTap.isEnabled = false
+            
+        }
+        
+        if(i == 0)
+        {
+            //no backward
+            menuView?.menuItemView.backwardButtonTap.isEnabled = false
+            
+        }
     }
    
     @IBAction func handleUndoButton(_ sender: UIButton) {
@@ -221,7 +429,7 @@ class CanvasViewController: UIViewController {
                         
                     })
                 }
-                //self.dismissMenuView()
+                self.dismissMenuView()
                 self.removeBorderFromAll()
             }
         }
@@ -256,6 +464,9 @@ class CanvasViewController: UIViewController {
         
         //self.addNewImageViewLayer()
         self.view.layoutIfNeeded()
+        
+        self.addNewImageViewLayer()
+        
         //removeBorderFromAll()
        // self.dismissMenuView()
     }
@@ -449,6 +660,17 @@ class CanvasViewController: UIViewController {
 
         selectedImage = imageView
         addImageToBoundarySubView(imageView)
+        addNewImageViewLayer()
+        
+    }
+    
+    func addNewImageViewLayer(){
+        
+        //check subview position
+        self.checkSubviewPositionAndShowMenuView()
+        
+        /// menuView?.showCanvasView()
+        self.showMenuView()
         
     }
     

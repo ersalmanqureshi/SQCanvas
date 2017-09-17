@@ -33,7 +33,7 @@ class MenuView: UIView {
     
     func xibSetup() {
         
-        Bundle.main.loadNibNamed("Menu", owner: self, options: nil)?[0] as! UIView
+        Bundle.main.loadNibNamed("Menu", owner: self, options: nil)?[0] as? UIView
         self.addSubview(view)
         view.frame = self.bounds
         
