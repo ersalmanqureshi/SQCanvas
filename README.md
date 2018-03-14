@@ -5,7 +5,7 @@ Canvas is a wall for your special photo memories where you can import some speci
 
 ### Permission
 
-`SQCanvas` handles permissions for you. It checks and askes for photo and camera usage permissions at first launch.
+`SQCanvas` checks and ask for photo and camera usage permissions at first launch.
 
 ## Author
 Salman Qureshi, er.salmanqureshi@gmail.com
